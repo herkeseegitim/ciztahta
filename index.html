@@ -3,8 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-X/sGVNEWNtpy8GLzjcIpCto2psX8xQoQ1HLlpyD6xvk=' blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-EIDtLmyzgEOixlca6ssckKfY/DWtEwyElMJP+uZENhM=' blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="description" content="ÇizTahta — kurulumsuz, hesapsız, çevrimdışı öğretmen tahtası. PDF üstüne çizim, perde, spot, süre, rastgele öğrenci.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Herkese Eğitim">
+<meta property="og:title" content="ÇizTahta — kurulumsuz, hesapsız öğretmen tahtası">
+<meta property="og:description" content="Tarayıcıda açılır, internet gitse de çalışır. PDF üstüne çizim, perde, spot, süre, rastgele öğrenci. Ücretsiz, açık kaynak.">
+<meta property="og:url" content="https://herkeseegitim.github.io/ciztahta/">
+<meta property="og:image" content="https://herkeseegitim.github.io/ciztahta/kapak.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="720">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@cincinosos">
+<meta name="twitter:title" content="ÇizTahta — kurulumsuz, hesapsız öğretmen tahtası">
+<meta name="twitter:description" content="Tarayıcıda açılır, internet gitse de çalışır. PDF üstüne çizim, perde, spot, süre, rastgele öğrenci.">
+<meta name="twitter:image" content="https://herkeseegitim.github.io/ciztahta/kapak.png">
 <meta name="color-scheme" content="light dark">
 <title>ÇizTahta</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%235B3FA0'/%3E%3Cpath d='M44 20a16 16 0 1 0 0 24M32 44v8M26 54h12' fill='none' stroke='%23FFC43D' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -516,7 +530,7 @@ en:{
  min:'min'
 }};
 let LANG=null;try{LANG=localStorage.getItem('ct.lang')}catch(_){}
-let lsWarned=false;function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){console.warn('storage',e);if(!lsWarned){lsWarned=true;const full=e&&(e.name==='QuotaExceededError'||e.code===22);if(typeof toast==='function')toast(full?(LANG==='tr'?'Tarayıcı depolaması dolu — ayarlar ve listeler kaydedilemedi, Kulis › yedekle':'Browser storage full — settings and lists not saved, back up via Backstage'):(LANG==='tr'?'Tarayıcı depolamaya izin vermiyor — ayarlar ve listeler kaydedilmeyecek':'Browser blocks storage — settings and lists will not be saved'),5000)}return false}}if(!Object.prototype.hasOwnProperty.call(I18N,LANG))LANG='tr';
+let lsWarned=false;function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){console.warn('storage',e);if(!lsWarned){lsWarned=true;const full=e&&(e.name==='QuotaExceededError'||e.code===22);if(typeof toast==='function')toast(full?(LANG==='tr'?'Tarayıcı depolaması dolu — ayarlar ve listeler kaydedilemedi, Kulis › yedekle':'Browser storage full — settings and lists not saved, back up via Backstage'):(LANG==='tr'?'Tarayıcı depolamaya izin vermiyor — ayarlar ve listeler kaydedilmeyecek':'Browser blocks storage — settings and lists will not be saved'),5000)}return false}}if(!Object.prototype.hasOwnProperty.call(I18N,LANG)){let nl='';try{nl=(navigator.language||'').toLowerCase()}catch(_){}LANG=(nl&&!nl.startsWith('tr'))?'en':'tr'};
 const t=k=>{const v=I18N[LANG][k];return v===undefined?(I18N.tr[k]??k):v};
 function applyI18n(){
  document.documentElement.lang=LANG;
