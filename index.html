@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-PLOvX1UNHAUfG0dQHa5kW5404qGdy9vaP9p1+8dv/0w=' blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-X/sGVNEWNtpy8GLzjcIpCto2psX8xQoQ1HLlpyD6xvk=' blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="description" content="ÇizTahta — kurulumsuz, hesapsız, çevrimdışı öğretmen tahtası. PDF üstüne çizim, perde, spot, süre, rastgele öğrenci.">
 <meta name="color-scheme" content="light dark">
 <title>ÇizTahta</title>
@@ -404,7 +404,7 @@ canvas#fx{z-index:2}
   <h2 data-i18n="h_privacy">Gizlilik</h2>
   <p class="note" data-i18n="privacy_note">Bu sayfa hiçbir sunucuya bağlanmaz; çizimler, listeler ve ayarlar yalnızca bu tarayıcıda durur. Dosyayı indirip internetsiz de açabilirsin.</p>
   <button class="kb" data-act="wipe" style="background:rgba(214,40,40,.25)"><svg><use href="#i-trash"/></svg><span data-i18n="wipe">Bu cihazdaki tüm verileri sil</span></button>
-  <p class="note" style="margin-top:18px">İdiye Ökten · <span data-i18n="credit">Bilgisayar Olimpiyat Öğretmeni</span> · v1.0</p>
+  <p class="note" style="margin-top:18px">İdiye Ökten · v1.1</p>
 </div>
 
 <div id="roul" role="dialog" aria-modal="true" aria-label="Sınıf"></div>
@@ -472,7 +472,7 @@ tr:{
  kulis:'Kulis',slogan:'Kurulum yok, kayıt yok. Aç ve anlat.',h_lesson:'Ders',lesson_ph:'Ders adı (dosya adında kullanılır)',import:'PDF / resim / kayıt aç',paste:'Panodan yapıştır',exportpdf:'PDF olarak kaydet',exportpng:'Bu sayfayı PNG kaydet',exportjson:'Çalışmayı dosyaya yedekle',newdoc:'Yeni çalışma (sayfaları temizle)',
  h_page:'Sayfa',dup:'Çoğalt',delpage:'Sayfayı sil',h_class:'Sınıf listeleri',lname_ph:'Liste adı (örn. 6-A)',lnames_ph:'Her satıra bir ad\nAli\nAyşe\n…',list_note:'Listeler yalnızca bu bilgisayarda, tarayıcının içinde saklanır.',
  h_settings:'Ayarlar',s_sound:'Sesler',s_motion:'Hareketli efektler',s_autoshape:'Şekil düzeltme (bekle-tut)',s_big:'Büyük düğmeler',s_bottom:'Araç çubuğu altta',s_lang:'English',s_keys:'Kısayollar',s_keys_on:'Tek tuş kısayolları',s_intro:'Açılışı tekrar göster',
- h_privacy:'Gizlilik',privacy_note:'Bu sayfa hiçbir sunucuya bağlanmaz; çizimler, listeler ve ayarlar yalnızca bu tarayıcıda durur. Dosyayı indirip internetsiz de açabilirsin.',wipe:'Bu cihazdaki tüm verileri sil',credit:'Bilgisayar Olimpiyat Öğretmeni',drop:'Bırak: PDF, resim ya da yedek',
+ h_privacy:'Gizlilik',privacy_note:'Bu sayfa hiçbir sunucuya bağlanmaz; çizimler, listeler ve ayarlar yalnızca bu tarayıcıda durur. Dosyayı indirip internetsiz de açabilirsin.',wipe:'Bu cihazdaki tüm verileri sil',drop:'Bırak: PDF, resim ya da yedek',
  stopwatch:'Kronometre',tstop:'Durdur',random:'Rastgele öğrenci',groups:'Gruplar',
  resume:'Kaldığın yerden devam edelim mi?',resume_info:(n,t)=>`${n} sayfa · son kayıt ${t}`,cont:'Devam',fresh:'Yeni başla',
  saved:'Kaydedildi',pdf_err:'PDF açılamadı',file_err:'Dosya açılamadı',imported:n=>`${n} sayfa eklendi`,copied:'Sayfa çoğaltıldı',deleted:'Sayfa silindi',lastpage:'Tek sayfa silinmez; temizlendi',
@@ -496,7 +496,7 @@ en:{
  kulis:'Backstage',slogan:'Open. Draw. Teach.',h_lesson:'Lesson',lesson_ph:'Lesson name (used in file name)',import:'Open PDF / image / backup',paste:'Paste from clipboard',exportpdf:'Save as PDF',exportpng:'Save this page as PNG',exportjson:'Back up work to a file',newdoc:'New work (clear pages)',
  h_page:'Page',dup:'Duplicate',delpage:'Delete page',h_class:'Class lists',lname_ph:'List name (e.g. 6-A)',lnames_ph:'One name per line\nAli\nMaya\n…',list_note:'Lists are stored only on this computer, inside the browser.',
  h_settings:'Settings',s_sound:'Sounds',s_motion:'Motion effects',s_autoshape:'Shape correction (hold)',s_big:'Big buttons',s_bottom:'Toolbar at bottom',s_lang:'Türkçe',s_keys:'Shortcuts',s_keys_on:'Single-key shortcuts',s_intro:'Show intro again',
- h_privacy:'Privacy',privacy_note:'This page never contacts a server; drawings, lists and settings stay in this browser. Download the file and use it offline.',wipe:'Delete all data on this device',credit:'Computer Science Olympiad Teacher',drop:'Drop: PDF, image or backup',
+ h_privacy:'Privacy',privacy_note:'This page never contacts a server; drawings, lists and settings stay in this browser. Download the file and use it offline.',wipe:'Delete all data on this device',drop:'Drop: PDF, image or backup',
  stopwatch:'Stopwatch',tstop:'Stop',random:'Random student',groups:'Groups',
  resume:'Continue where you left off?',resume_info:(n,t)=>`${n} pages · last saved ${t}`,cont:'Continue',fresh:'Start fresh',
  saved:'Saved',pdf_err:'Could not open PDF',file_err:'Could not open file',imported:n=>`${n} pages added`,copied:'Page duplicated',deleted:'Page deleted',lastpage:'Last page kept; cleared instead',
