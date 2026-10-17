@@ -20,8 +20,15 @@ Açtığın PDF, çizimler ve listeler hiçbir sunucuya gitmez; yalnız o bilgis
 ## Eksik, istek, hata
 Issue aç ya da videonun altına yaz; bakıyorum.
 
+## Hangi tahtalarda denendi
+ETAP 19 ve 23'teki Firefox sürümleriyle, Windows'ta Edge ve Chrome ile denendi. ETAP 19'un ilk sürümlerinde (Firefox 70 öncesi) PDF açılmaz. Tahtanızda sorun çıkarsa yazın.
+
 ## Lisans
-MIT — İdiye Ökten. PDF okuma için pdf.js (Apache-2.0) gömülüdür.
+ÇizTahta: MIT — İdiye Ökten.
+
+İçinde gelenler:
+- pdf.js 4.10.38 (Mozilla), Apache-2.0. Eski tarayıcılarda çalışsın diye dönüştürüldü ve küçültüldü. Lisans metni: `LICENSE-pdfjs-Apache-2.0.txt` (dosyanın sonunda da var).
+- esbuild (Evan Wallace) yardımcı kodu, MIT. Lisans metni: `LICENSE-esbuild-MIT.txt`.
 
 
 ## Nasıl yapıldı
