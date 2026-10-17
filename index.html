@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-12HCDzKlXtSOzndroWXw4xoGsslKrY48kHtnfiHQnvM=' blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Y0sUn4TqhPcjAyEFZCrfUQV0TAvx49jA6DZvWf7uPZ4=' blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="description" content="ÇizTahta — kurulumsuz, hesapsız, çevrimdışı öğretmen tahtası. PDF üstüne çizim, perde, spot, süre, rastgele öğrenci.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Herkese Eğitim">
@@ -77,6 +77,7 @@ canvas#fx{pointer-events:none}
 .pop .pb.on{background:#E9E2FB;box-shadow:0 0 0 2px var(--mor) inset}
 .pop .pb kbd{font:600 16px var(--ui);color:var(--muted);background:#fff;border:1px solid #ddd;border-radius:5px;padding:1px 5px}
 .pop.col{flex-direction:column;align-items:stretch}
+.pop .hint{margin:0 2px 2px;font-size:16px;color:var(--muted);font-weight:600;white-space:nowrap}
 .pop .row{display:flex;gap:8px;align-items:center}
 @keyframes popin{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 
@@ -195,6 +196,17 @@ canvas#fx{pointer-events:none}
 #keys{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:53;padding-top:24px;display:none;background:var(--panel);border-radius:20px;box-shadow:var(--shadow);padding:20px 24px;grid-template-columns:1fr 1fr;gap:2px 28px;font-size:16px;max-height:84vh;width:min(92vw,900px);overflow:auto}
 #keys.on{display:grid}
 #keys h2{grid-column:1/-1}
+#keys.guide{gap:10px 22px;align-content:start}
+#keys.guide section{background:#F7F4FD;border-radius:14px;padding:12px 14px;display:block}
+#keys.guide h3{margin:0 0 4px;font-size:17px;color:var(--mor2)}
+#keys.guide p{margin:0;font-size:16px;line-height:1.45;color:var(--ink)}
+#keys.guide .gfoot{grid-column:1/-1;display:flex;justify-content:flex-end;padding-top:4px}
+#keys.guide .gfoot .pb{height:44px;padding:0 14px;border:0;border-radius:12px;background:#F3F0FA;font:700 16px var(--ui);cursor:pointer;display:flex;gap:8px;align-items:center}
+#guide-note{position:absolute;right:16px;top:64px;z-index:30;border:0;cursor:pointer;background:var(--sari);color:var(--ink);font:700 16px var(--ui);padding:10px 14px 12px;border-radius:3px 3px 10px 3px;box-shadow:2px 4px 10px rgba(0,0,0,.22);transform:rotate(-2deg);transform-origin:top right;transition:transform .15s}
+#guide-note::before{content:'';position:absolute;left:50%;top:-7px;width:44px;height:12px;margin-left:-22px;background:rgba(255,255,255,.55);transform:rotate(1.5deg);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+#guide-note:hover{transform:rotate(0) scale(1.04)}
+#guide-note:focus-visible{outline:3px solid var(--mor2);outline-offset:2px}
+@media (max-width:900px){#keys.guide{grid-template-columns:1fr}}
 #keys div{display:flex;justify-content:space-between;gap:16px;padding:3px 0;break-inside:avoid}
 #keys kbd{font:700 16px var(--ui);background:#F3F0FA;border:1px solid #ddd;border-radius:5px;padding:1px 7px;min-width:28px;text-align:center}
 #toast{position:absolute;left:50%;bottom:80px;transform:translateX(-50%);z-index:55;background:var(--ink);color:#fff;padding:10px 18px;border-radius:12px;font-weight:600;font-size:18px;opacity:0;transition:opacity .2s;pointer-events:none;display:flex;gap:12px;align-items:center;white-space:nowrap}
@@ -323,6 +335,10 @@ canvas#fx{z-index:2}
   </div>
 </div>
 
+<div class="pop col" id="pop-erase" role="dialog" aria-label="Silgi">
+  <p class="hint" data-i18n="erase_hint">Tıkla: nesneyi sil · Sürükle: çizgiyi kes</p>
+  <button class="pb" data-act="clearpage"><svg><use href="#i-erase"/></svg><span data-i18n="clearpage">Sayfayı temizle</span></button>
+</div>
 <div class="pop" id="pop-stage" role="dialog" aria-label="Sahne">
   <button class="pb" data-act="curtain"><svg><use href="#i-curtain"/></svg><span data-i18n="curtain">Perde</span><kbd aria-hidden="true">P</kbd></button>
   <button class="pb" data-act="spot"><svg><use href="#i-spot"/></svg><span data-i18n="spot">Spot</span><kbd aria-hidden="true">O</kbd></button>
@@ -368,6 +384,7 @@ canvas#fx{z-index:2}
   <button class="rb" id="btn-sound" aria-pressed="true"><svg><use href="#i-sound"/></svg></button>
   <button class="rb logo" id="btn-kulis" aria-haspopup="dialog"><span class="lg"><svg viewBox="0 0 64 64"><use href="#i-logo"/></svg></span><span data-i18n="kulis">Ayarlar</span></button>
 </div>
+<button id="guide-note" aria-haspopup="dialog"><span data-i18n="guide_note">Nasıl kullanılır?</span></button>
 </header>
 
 <div id="kulis" role="dialog" aria-modal="true" aria-label="Ayarlar" inert>
@@ -388,6 +405,7 @@ canvas#fx{z-index:2}
   <h2 data-i18n="h_page">Sayfa</h2>
   <div class="row" style="display:flex;gap:6px">
     <button class="kb" data-act="dup" style="margin:0"><svg><use href="#i-copy"/></svg><span data-i18n="dup">Çoğalt</span></button>
+    <button class="kb" data-act="clearpage" style="margin:0"><svg><use href="#i-erase"/></svg><span data-i18n="clearpage">Sayfayı temizle</span></button>
     <button class="kb" data-act="delpage" style="margin:0"><svg><use href="#i-trash"/></svg><span data-i18n="delpage">Sayfayı sil</span></button>
   </div>
   <div class="row" style="display:flex;gap:6px;margin-top:6px" id="bgs">
@@ -412,13 +430,14 @@ canvas#fx{z-index:2}
   <button class="kb tog on" role="switch" aria-checked="true" data-set="keys"><svg><use href="#i-keys"/></svg><span data-i18n="s_keys_on">Tek tuş kısayolları</span></button>
   <button class="kb tog" role="switch" aria-checked="false" data-set="bottom"><svg><use href="#i-menu"/></svg><span data-i18n="s_bottom">Araç çubuğu altta</span></button>
   <button class="kb" data-act="lang"><svg><use href="#i-lang"/></svg><span data-i18n="s_lang">English</span></button>
+  <button class="kb" data-act="guide"><svg><use href="#i-keys"/></svg><span data-i18n="guide_title">Nasıl kullanılır?</span></button>
   <button class="kb" data-act="keys"><svg><use href="#i-keys"/></svg><span data-i18n="s_keys">Kısayollar</span><kbd aria-hidden="true">?</kbd></button>
   <button class="kb" data-act="intro"><svg><use href="#i-curtain"/></svg><span data-i18n="s_intro">Açılışı tekrar göster</span></button>
 
   <h2 data-i18n="h_privacy">Gizlilik</h2>
   <p class="note" data-i18n="privacy_note">Bu sayfa hiçbir sunucuya bağlanmaz; çizimler, listeler ve ayarlar yalnızca bu tarayıcıda durur. Dosyayı indirip internetsiz de açabilirsin.</p>
   <button class="kb" data-act="wipe" style="background:rgba(214,40,40,.25)"><svg><use href="#i-trash"/></svg><span data-i18n="wipe">Bu cihazdaki tüm verileri sil</span></button>
-  <p class="note" style="margin-top:18px">İdiye Ökten · v1.1</p>
+  <p class="note" style="margin-top:18px">İdiye Ökten · v1.2</p>
 </div>
 
 <div id="roul" role="dialog" aria-modal="true" aria-label="Sınıf"></div>
@@ -484,7 +503,16 @@ const I18N={
 tr:{
  pen:'Kalem',hl:'Fosforlu',shape:'Şekil',text:'Yazı',erase:'Silgi',undo:'Geri al',redo:'İleri al',stage:'Sahne',cls:'Sınıf',move:'Taşı',table:'Tablo',stamp:'Damga',laser:'Lazer',spot:'Spot',curtain:'Perde',hide:'Gizle',show:'Göster',newpage:'Yeni sayfa',bg:'Zemin',
  kulis:'Ayarlar',slogan:'Kurulum yok, kayıt yok. Aç ve anlat.',h_lesson:'Ders',lesson_ph:'Ders adı (dosya adında kullanılır)',import:'PDF / resim / kayıt aç',paste:'Panodan yapıştır',exportpdf:'PDF olarak kaydet',exportpng:'Bu sayfayı PNG kaydet',exportjson:'Çalışmayı dosyaya yedekle',newdoc:'Yeni çalışma (sayfaları temizle)',
- h_page:'Sayfa',dup:'Çoğalt',delpage:'Sayfayı sil',h_class:'Sınıf listeleri',lname_ph:'Liste adı (örn. 6-A)',lnames_ph:'Her satıra bir ad\nAli\nAyşe\n…',list_note:'Listeler yalnızca bu bilgisayarda, tarayıcının içinde saklanır.',
+ h_page:'Sayfa',dup:'Çoğalt',delpage:'Sayfayı sil',guide_title:'Nasıl kullanılır?',guide_note:'Nasıl kullanılır?',guide_all:'Tüm kısayollar',guide:[
+ ['Çiz','Soldaki çubuktan araç seç. Aynı araca ikinci tık: renk ve kalınlık. 1–6 renk, [ ] ince/kalın.'],
+ ['Halka menü','Tahtada boş yere sağ tık; dokunmatikte parmağını yarım saniye basılı tut. Dilime kaydır, bırak: Damga, Tablo, Taşı, Çoğalt, Spot, Perde, Yeni sayfa, Zemin, Temizle.'],
+ ['Perde, spot, lazer','P perde: cevabı kapat, sürükle, kenardan boyutla, çift tık tam ekran. O spot: bir yeri aydınlat, tekerlekle büyüt. L lazer. H çizimleri gizle/göster.'],
+ ['PDF','Dosyayı pencereye sürükle ya da Ctrl+O. Her PDF sayfası ayrı tahta olur; üstüne yaz, sayfa değişse de durur. Ctrl+S: yazdıklarınla birlikte PDF kaydet.'],
+ ['Sil','Silgi: tıkla nesneyi siler, sürükle çizgiyi keser. Silgiye ikinci tık: Sayfayı temizle. Ctrl+Z geri alır.'],
+ ['Sayfalar','← → tuşları ya da alttaki şerit (imleci alta götür). N yeni sayfa. Şeritte sağ tık / uzun bas: sayfayı sil (20 sn geri alınır).'],
+ ['Sınıf','Sınıf menüsü: R rastgele öğrenci, süre, kronometre, gruplar. Adları Ayarlar › Sınıf listeleri bölümüne yapıştır.'],
+ ['Ayarlar (sağ üst)','PDF/resim aç, yedek al, önceki çalışmayı geri getir, sesler, büyük düğmeler, English, bu kılavuz.']
+],clearpage:'Sayfayı temizle',erase_hint:'Tıkla: nesneyi sil · Sürükle: çizgiyi kes',cleared:'Sayfa temizlendi — Ctrl+Z geri alır',empty_page:'Sayfa zaten boş',h_class:'Sınıf listeleri',lname_ph:'Liste adı (örn. 6-A)',lnames_ph:'Her satıra bir ad\nAli\nAyşe\n…',list_note:'Listeler yalnızca bu bilgisayarda, tarayıcının içinde saklanır.',
  h_settings:'Ayarlar',s_sound:'Sesler',s_motion:'Hareketli efektler',s_autoshape:'Şekil düzeltme (bekle-tut)',s_big:'Büyük düğmeler',s_bottom:'Araç çubuğu altta',s_lang:'English',s_keys:'Kısayollar',s_keys_on:'Tek tuş kısayolları',s_intro:'Açılışı tekrar göster',
  h_privacy:'Gizlilik',privacy_note:'Bu sayfa hiçbir sunucuya bağlanmaz; çizimler, listeler ve ayarlar yalnızca bu tarayıcıda durur. Dosyayı indirip internetsiz de açabilirsin.',wipe:'Bu cihazdaki tüm verileri sil',drop:'Bırak: PDF, resim ya da yedek',
  stopwatch:'Kronometre',tstop:'Durdur',random:'Rastgele öğrenci',groups:'Gruplar',
@@ -492,13 +520,13 @@ tr:{
  saved:'Kaydedildi',pdf_err:'PDF açılamadı',file_err:'Dosya açılamadı',imported:n=>`${n} sayfa eklendi`,copied:'Sayfa çoğaltıldı',deleted:'Sayfa silindi',lastpage:'Tek sayfa silinmez; temizlendi',
  nolist:'Önce Ayarlar › Sınıf listeleri bölümüne adları yaz',alldone:'Herkes seçildi, liste sıfırlandı',again:'Tekrar',close:'Kapat',reset:'Sıfırla',pick:'Seç',group:'Grup',ngroups:'Grup sayısı',
  wipe_q:'Bu tarayıcıdaki tüm ÇizTahta verileri silinsin mi? (çizimler, listeler, ayarlar)',wiped:'Silindi',wipe_err:'Veriler silinemedi — tarayıcı izin vermedi',newdoc_q:'Tüm sayfalar temizlensin mi? Önce yedek almak istersen Ayarlar › yedekle.',
- hello:'Merhaba, buraya yaz.',t1:'Bir şey çiz',t2:'Rengi değiştir',t3:'Sayfa ekle',
+ hello:'Merhaba, buraya yaz.',t1:'Bir şey çiz',t2:'Rengi değiştir',t3:'Sağ tıkla: halka menü',t4:'P: perde',t5:'Sayfa ekle',
  sample_title:'Örnek ders sayfası — silip kendin kullanabilirsin',
  timer_end:'Süre bitti',hidden:'Çizimler gizlendi (H ile geri al)',hidden_badge:'Çizimler gizli · H ile göster',
  keys_title:'Kısayollar',
  keymap:{pen:'k',hl:'f',shape:'ş',text:'y',erase:'s',table:'t',stamp:'d',laser:'l',spot:'o',curtain:'p',newpage:'n',bg:'z',random:'r',hide:'h',sound:'q',move:'m',undo:'g',timer:'ü',fitw:'w'},
  keylist:[['Ctrl+D','Sayfayı çoğalt'],['Home / End','İlk / son sayfa'],['K','Kalem'],['F','Fosforlu'],['Ş','Şekil'],['Y','Yazı'],['S','Silgi'],['M','Taşı'],['T','Tablo'],['D','Damga'],['L','Lazer'],['O','Spot'],['P','Perde'],['H','Gizle / göster'],['N','Yeni sayfa'],['Z','Zemin değiştir'],['R','Rastgele öğrenci'],['Ü','Süre menüsü'],['Q','Ses aç/kapa'],['1–6','Renk'],['[ ]','İnce / kalın'],['Ctrl+Z / Ctrl+Y','Geri / ileri'],['Delete','Seçileni sil'],['← → PgUp PgDn','Sayfa'],['Ctrl+S','PDF kaydet'],['Ctrl+O','Dosya aç'],['Ctrl+V','Yapıştır'],['Ctrl+tekerlek / Ctrl+= Ctrl+-','Yakınlaştır'],['W','Genişliğe sığdır'],['↑ ↓ (yakınken)','Sayfada kaydır'],['Ctrl+0','Yakınlaştırmayı sıfırla'],['Boşluk+sürükle','Kaydır'],['Sağ tık / parmakla uzun bas','Halka menü'],['Araca ikinci tık','Renk ve kalınlık'],['Silgi: tıkla / sürükle','Nesneyi sil / çizgiyi kes'],['Saat ❚❚ ⤢ ✕','Duraklat / büyüt / kapat'],['Esc','Kapat'],['?','Bu kart']],
- ring:['Damga','Tablo','Taşı','Çoğalt','Spot','Perde','Yeni sayfa','Zemin'],
+ ring:['Damga','Tablo','Taşı','Çoğalt','Spot','Perde','Yeni sayfa','Zemin','Temizle'],
  stamps:['⭐','✔','❤','❓','👏','🙂'],
  bgnames:{krem:'Krem',dark:'Koyu',grid:'Kareli',lines:'Çizgili'},
  delpage_q:'Bu sayfa silinsin mi?',lastpage_hint:'Son sayfa — yeni sayfa için tekrar bas',row:'satır',col:'sütun',a_cv:'Çizim tahtası',a_page:(i,n)=>`Sayfa ${i}/${n}`,a_min:'Dakika',a_cls:'Sınıf',a_zoom:'Yakınlaştırmayı sıfırla',a_close:'Kapat',a_tools:'Araçlar',a_pages:'Sayfalar',a_pause:'Duraklat / sürdür',a_big:'Büyüt',a_sound:'Ses (Q)',a_style:'Renk ve kalınlık',a_text:'Yazı',a_resume:'Devam',a_fs:'Tam ekran',lname_lbl:'Liste adı',lnames_lbl:'Öğrenci adları',fs_hint:'Projeksiyonda tam ekran için F11',lists_out:'Listeleri dosyaya aktar',lists_in:'Listeleri dosyadan al',lists_ok:'Listeler alındı',fitw:'Genişliğe sığdır',to_page:'Sayfaya yaz',undo_btn:'Geri al',prevdoc:'Önceki çalışmayı geri getir',prev_saved:'Önceki çalışma kenara alındı: Ayarlar › Önceki çalışmayı geri getir',prev_q:'Şu anki çalışma kenara alınıp önceki geri getirilsin mi? (Aynı düğmeyle tekrar yer değiştirir.)',zoom_reset:'Sığdır (Ctrl+0)',
@@ -508,7 +536,16 @@ tr:{
 en:{
  pen:'Pen',hl:'Highlighter',shape:'Shape',text:'Text',erase:'Eraser',undo:'Undo',redo:'Redo',stage:'Stage',cls:'Class',move:'Move',table:'Table',stamp:'Stamp',laser:'Laser',spot:'Spotlight',curtain:'Curtain',hide:'Hide',show:'Show',newpage:'New page',bg:'Background',
  kulis:'Settings',slogan:'Open. Draw. Teach.',h_lesson:'Lesson',lesson_ph:'Lesson name (used in file name)',import:'Open PDF / image / backup',paste:'Paste from clipboard',exportpdf:'Save as PDF',exportpng:'Save this page as PNG',exportjson:'Back up work to a file',newdoc:'New work (clear pages)',
- h_page:'Page',dup:'Duplicate',delpage:'Delete page',h_class:'Class lists',lname_ph:'List name (e.g. 6-A)',lnames_ph:'One name per line\nAli\nMaya\n…',list_note:'Lists are stored only on this computer, inside the browser.',
+ h_page:'Page',dup:'Duplicate',delpage:'Delete page',guide_title:'How to use',guide_note:'How to use',guide_all:'All shortcuts',guide:[
+ ['Draw','Pick a tool from the left bar. Second tap on the same tool: color and width. 1–6 colors, [ ] thinner/thicker.'],
+ ['Ring menu','Right-click an empty spot; on touch, hold your finger for half a second. Slide to a slice and release: Stamp, Table, Move, Duplicate, Spotlight, Curtain, New page, Background, Clear.'],
+ ['Curtain, spotlight, laser','P curtain: hide the answer, drag it, resize from the edge, double-tap for full screen. O spotlight: light one spot, scroll to resize. L laser. H hide/show drawings.'],
+ ['PDF','Drag a file onto the window or Ctrl+O. Each PDF page becomes its own board; write on it, it stays when you change pages. Ctrl+S: save as PDF with your writing.'],
+ ['Delete','Eraser: tap deletes an object, drag cuts a stroke. Second tap on the eraser: Clear page. Ctrl+Z undoes.'],
+ ['Pages','← → keys or the strip at the bottom (move the pointer down). N new page. Right-click / long-press a thumbnail: delete page (undo within 20 s).'],
+ ['Class','Class menu: R random student, timer, stopwatch, groups. Paste names in Settings › Class lists.'],
+ ['Settings (top right)','Open PDF/image, back up, restore previous work, sounds, big buttons, Türkçe, this guide.']
+],clearpage:'Clear page',erase_hint:'Tap: delete object · Drag: cut stroke',cleared:'Page cleared — Ctrl+Z undoes',empty_page:'Page is already empty',h_class:'Class lists',lname_ph:'List name (e.g. 6-A)',lnames_ph:'One name per line\nAli\nMaya\n…',list_note:'Lists are stored only on this computer, inside the browser.',
  h_settings:'Settings',s_sound:'Sounds',s_motion:'Motion effects',s_autoshape:'Shape correction (hold)',s_big:'Big buttons',s_bottom:'Toolbar at bottom',s_lang:'Türkçe',s_keys:'Shortcuts',s_keys_on:'Single-key shortcuts',s_intro:'Show intro again',
  h_privacy:'Privacy',privacy_note:'This page never contacts a server; drawings, lists and settings stay in this browser. Download the file and use it offline.',wipe:'Delete all data on this device',drop:'Drop: PDF, image or backup',
  stopwatch:'Stopwatch',tstop:'Stop',random:'Random student',groups:'Groups',
@@ -516,13 +553,13 @@ en:{
  saved:'Saved',pdf_err:'Could not open PDF',file_err:'Could not open file',imported:n=>`${n} pages added`,copied:'Page duplicated',deleted:'Page deleted',lastpage:'Last page kept; cleared instead',
  nolist:'First type names in Settings › Class lists',alldone:'Everyone picked, list reset',again:'Again',close:'Close',reset:'Reset',pick:'Pick',group:'Group',ngroups:'Number of groups',
  wipe_q:'Delete all ÇizTahta data in this browser? (drawings, lists, settings)',wiped:'Deleted',wipe_err:'Could not delete data — browser refused',newdoc_q:'Clear all pages? Back up first via Settings if needed.',
- hello:'Hello, write here.',t1:'Draw something',t2:'Change color',t3:'Add a page',
+ hello:'Hello, write here.',t1:'Draw something',t2:'Change color',t3:'Right-click: ring menu',t4:'P: curtain',t5:'Add a page',
  sample_title:'Sample lesson page — erase and use it yourself',
  timer_end:'Time is up',hidden:'Drawings hidden (V to show)',hidden_badge:'Drawings hidden · V to show',
  keys_title:'Shortcuts',
  keymap:{pen:'p',hl:'h',shape:'s',text:'t',erase:'e',table:'b',stamp:'m',laser:'l',spot:'o',curtain:'c',newpage:'n',bg:'g',random:'r',hide:'v',sound:'q',move:'a',undo:'u',timer:'i',fitw:'w'},
  keylist:[['Ctrl+D','Duplicate page'],['Home / End','First / last page'],['P','Pen'],['H','Highlighter'],['S','Shape'],['T','Text'],['E','Eraser'],['A','Move'],['B','Table'],['M','Stamp'],['L','Laser'],['O','Spotlight'],['C','Curtain'],['V','Hide / show'],['N','New page'],['G','Background'],['R','Random student'],['I','Timer menu'],['Q','Sound on/off'],['1–6','Color'],['[ ]','Thinner / thicker'],['Ctrl+Z / Ctrl+Y','Undo / redo'],['Delete','Delete selection'],['← → PgUp PgDn','Page'],['Ctrl+S','Save PDF'],['Ctrl+O','Open file'],['Ctrl+V','Paste'],['Ctrl+wheel / Ctrl+= Ctrl+-','Zoom'],['W','Fit width'],['↑ ↓ (zoomed)','Scroll page'],['Ctrl+0','Reset zoom'],['Space+drag','Pan'],['Right-click / touch long press','Ring menu'],['Second tap on tool','Color and width'],['Eraser: tap / drag','Delete object / cut stroke'],['Clock ❚❚ ⤢ ✕','Pause / enlarge / close'],['Esc','Close'],['?','This card']],
- ring:['Stamp','Table','Move','Duplicate','Spotlight','Curtain','New page','Background'],
+ ring:['Stamp','Table','Move','Duplicate','Spotlight','Curtain','New page','Background','Clear'],
  stamps:['⭐','✔','❤','❓','👏','🙂'],
  bgnames:{krem:'Cream',dark:'Dark',grid:'Grid',lines:'Lines'},
  delpage_q:'Delete this page?',lastpage_hint:'Last page — press again for a new page',row:'row',col:'column',a_cv:'Drawing board',a_page:(i,n)=>`Page ${i}/${n}`,a_min:'Minutes',a_cls:'Class',a_zoom:'Reset zoom',a_close:'Close',a_tools:'Tools',a_pages:'Pages',a_pause:'Pause / resume',a_big:'Enlarge',a_sound:'Sound (Q)',a_style:'Color and width',a_text:'Text',a_resume:'Resume',a_fs:'Full screen',lname_lbl:'List name',lnames_lbl:'Student names',fs_hint:'Press F11 for full screen on the projector',lists_out:'Export lists to file',lists_in:'Import lists from file',lists_ok:'Lists imported',fitw:'Fit width',to_page:'Write to page',undo_btn:'Undo',prevdoc:'Restore previous work',prev_saved:'Previous work set aside: Settings › Restore previous work',prev_q:'Set the current work aside and restore the previous one? (Same button swaps back.)',zoom_reset:'Fit (Ctrl+0)',
@@ -761,11 +798,11 @@ $('#tsizes').addEventListener('click',e=>{const b=e.target.closest('.pb');if(!b)
 /* araç çubuğu */
 $('#bar').addEventListener('click',e=>{
  const b=e.target.closest('.tb');if(!b)return;
- if(b.dataset.tool){if(T.tool===b.dataset.tool&&['pen','hl','shape','text'].includes(T.tool)){if($('#pop-style').classList.contains('on'))closePops();else{stylePop(b);if(b.hasAttribute('aria-expanded'))b.setAttribute('aria-expanded','true')}}else setTool(b.dataset.tool)}
+ if(b.dataset.tool){if(T.tool===b.dataset.tool&&['pen','hl','shape','text'].includes(T.tool)){if($('#pop-style').classList.contains('on'))closePops();else{stylePop(b);if(b.hasAttribute('aria-expanded'))b.setAttribute('aria-expanded','true')}}else if(T.tool===b.dataset.tool&&T.tool==='erase'){if($('#pop-erase').classList.contains('on'))closePops();else openPop('pop-erase',b)}else setTool(b.dataset.tool)}
  else if(b.dataset.act==='undo')undoAny();
  else if(b.dataset.menu){const id='pop-'+b.dataset.menu;if($('#'+id).classList.contains('on'))closePops();else{openPop(id,b);b.setAttribute('aria-expanded','true')}}
 });
-$('#bar').addEventListener('contextmenu',e=>{const b=e.target.closest('.tb[data-tool]');if(b){e.preventDefault();setTool(b.dataset.tool,{silent:true});stylePop(b);if(b.hasAttribute('aria-expanded'))b.setAttribute('aria-expanded','true')}});
+$('#bar').addEventListener('contextmenu',e=>{const b=e.target.closest('.tb[data-tool]');if(b){e.preventDefault();setTool(b.dataset.tool,{silent:true});if(b.dataset.tool==='erase'){openPop('pop-erase',b);return}stylePop(b);if(b.hasAttribute('aria-expanded'))b.setAttribute('aria-expanded','true')}});
 $('#bar').addEventListener('dblclick',e=>{if(e.target.closest('.tb[data-act=undo]'))redo()});
 // sürükle (konum)
 (()=>{let d=null;const g=$('#bar .grip');g.addEventListener('pointerdown',e=>{d={x:e.clientX,y:e.clientY};g.setPointerCapture(e.pointerId)});
@@ -947,7 +984,7 @@ function coverEdge(x,y){const c=page().cover,m=28;return {l:x-c.x<m,r:c.x+c.w-x<
 function coverDrag(x,y){const c=page().cover,o=P.cov,dx=x-P.x0,dy=y-P.y0,e=P.edge;
  if(e.l||e.r||e.t||e.b){if(e.l){c.x=Math.min(o.x+dx,o.x+o.w-60);c.w=o.w-(c.x-o.x)}if(e.r)c.w=Math.max(60,o.w+dx);if(e.t){c.y=Math.min(o.y+dy,o.y+o.h-60);c.h=o.h-(c.y-o.y)}if(e.b)c.h=Math.max(60,o.h+dy)}
  else{c.x=o.x+dx;c.y=o.y+dy}}
-function toggleCover(){const p=page();snap();if(p.cover)p.cover=null;else{const [x0,y0]=toWorld(0,H/2),[x1,y1]=toWorld(W,H);const cx=Math.max(0,x0),cy=Math.max(0,y0),cw=Math.min(R.w,x1)-cx,ch=Math.min(R.h,y1)-cy;p.cover=(VIEW.k>1&&cw>60&&ch>60)?{x:cx,y:cy,w:cw,h:ch}:{x:0,y:R.h/2,w:R.w,h:R.h/2};snd('whoosh')}ghost(t('curtain'));render();changed()}
+function toggleCover(){if(typeof taskDone==='function')taskDone(4);const p=page();snap();if(p.cover)p.cover=null;else{const [x0,y0]=toWorld(0,H/2),[x1,y1]=toWorld(W,H);const cx=Math.max(0,x0),cy=Math.max(0,y0),cw=Math.min(R.w,x1)-cx,ch=Math.min(R.h,y1)-cy;p.cover=(VIEW.k>1&&cw>60&&ch>60)?{x:cx,y:cy,w:cw,h:ch}:{x:0,y:R.h/2,w:R.w,h:R.h/2};snd('whoosh')}ghost(t('curtain'));render();changed()}
 function toggleCoverSize(){const p=page(),c=p.cover;if(c.h>=R.h-2&&c.w>=R.w-2){p.cover={x:0,y:R.h/2,w:R.w,h:R.h/2}}else p.cover={x:0,y:0,w:R.w,h:R.h};render();changed()}
 
 /* ---------- spot ---------- */
@@ -960,14 +997,14 @@ cv.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();cons
 let wheelSnapT=0;
 
 /* ---------- radyal halka ---------- */
-const RING_ACTS=['stamp','table','move','dup','spot','curtain','newpage','bg'];
-const RING_ICO=['i-stamp','i-table','i-move','i-copy','i-spot','i-curtain','i-page','i-bg'];
+const RING_ACTS=['stamp','table','move','dup','spot','curtain','newpage','bg','clearpage'];const RING_N=RING_ACTS.length,RING_A=Math.PI*2/RING_N;
+const RING_ICO=['i-stamp','i-table','i-move','i-copy','i-spot','i-curtain','i-page','i-bg','i-erase'];
 let ringOpened=0,ringTouch=false;
 function openRing(x,y,touch){ringTouch=!!touch;
  x=Math.max(170,Math.min(W-170,x));y=Math.max(170,Math.min(H-170,y));
- ringOn=true;ringOpened=performance.now();ringAt=[x,y];ringHot=-1;const r=$('#ring');r.style.left=x+'px';r.style.top=y+'px';
+ ringOn=true;ringOpened=performance.now();if(typeof taskDone==='function')taskDone(3);ringAt=[x,y];ringHot=-1;const r=$('#ring');r.style.left=x+'px';r.style.top=y+'px';
  const names=t('ring');let s=`<svg viewBox="-140 -140 280 280">`;
- for(let i=0;i<8;i++){const a0=(i-.5)*Math.PI/4-Math.PI/2,a1=(i+.5)*Math.PI/4-Math.PI/2,R=138,r0=48;
+ for(let i=0;i<RING_N;i++){const a0=(i-.5)*RING_A-Math.PI/2,a1=(i+.5)*RING_A-Math.PI/2,R=138,r0=48;
   const p=(a,rr)=>`${(Math.cos(a)*rr).toFixed(1)},${(Math.sin(a)*rr).toFixed(1)}`;
   s+=`<path data-i="${i}" d="M${p(a0,r0)} L${p(a0,R)} A${R},${R} 0 0 1 ${p(a1,R)} L${p(a1,r0)} A${r0},${r0} 0 0 0 ${p(a0,r0)}Z"/>`;
   const am=(a0+a1)/2,tx=Math.cos(am)*96,ty=Math.sin(am)*96;
@@ -975,7 +1012,7 @@ function openRing(x,y,touch){ringTouch=!!touch;
  s+=`<circle class="c" r="44"/><text class="ct" y="5">${touch?(LANG==='tr'?'dokun':'tap'):(LANG==='tr'?'bırak':'release')}</text></svg>`;
  r.innerHTML=s;r.classList.add('on');snd('pop');
 }
-function ringHover(x,y){const dx=x-ringAt[0],dy=y-ringAt[1],d=Math.hypot(dx,dy);let i=-1;if(d>40&&d<190){let a=Math.atan2(dy,dx)+Math.PI/2;if(a<0)a+=Math.PI*2;i=Math.round(a/(Math.PI/4))%8}
+function ringHover(x,y){const dx=x-ringAt[0],dy=y-ringAt[1],d=Math.hypot(dx,dy);let i=-1;if(d>56&&d<190){let a=Math.atan2(dy,dx)+Math.PI/2;if(a<0)a+=Math.PI*2;i=Math.round(a/RING_A)%RING_N}
  if(i!==ringHot){ringHot=i;$$('#ring path').forEach(p=>p.classList.toggle('hot',+p.dataset.i===i));if(i>=0)snd('tick')}}
 function ringPick(){if(performance.now()-ringOpened<250&&!ringForce)return;if(ringTouch&&ringHot<0&&!ringForce){return}ringForce=false;ringTouch=false;ringOn=false;$('#ring').classList.remove('on');if(ringHot>=0)act(RING_ACTS[ringHot]);ringHot=-1}
 let ringForce=false;
@@ -1007,10 +1044,12 @@ function act(a,btn){
   case 'exportpng':exportPNG();break;
   case 'exportjson':exportJSON();break;
   case 'newdoc':if(importing)return;commitText();if(confirm(t('newdoc_q'))){DOC.pages=[newPage()];DOC.cur=0;DOC.name='';$('#lesson').value='';freshRef();clearUndo();sel=null;setZoom(1);fitTools();render();pagesUI();structChanged();changed()}break;
+  case 'clearpage':clearPage();break;
   case 'dup':dupPage();break;
   case 'delpage':delPage();break;
   case 'lang':LANG=LANG==='tr'?'en':'tr';lsSet('ct.lang',LANG);applyI18n();{const h=$('#hello');if(!h.classList.contains('gone')){const hw=$('#hw');if(hw)hw.textContent=t('hello');$$('#hello .tasks span').forEach((s,i)=>s.textContent=t('t'+(i+1)))}}break;
-  case 'keys':closeKulis();toggleKeys();break;
+  case 'keys':closeKulis();toggleKeys('keys');break;
+  case 'guide':closeKulis();toggleKeys('guide');break;
   case 'intro':closeKulis();intro(true);break;
   case 'fs':{try{const pr=document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();if(pr&&pr.catch)pr.catch(()=>{})}catch(_){}break}
   case 'wipe':wipeAll();break;
@@ -1054,7 +1093,8 @@ let stripTouch=false;
 function goPage(i,dir){if(importing||i<0||i>=DOC.pages.length)return;commitText();const d=dir||(i>DOC.cur?1:-1);if(i===DOC.cur)return;
  DOC.cur=i;sel=null;drawing=null;if(spotMode)toggleSpot();helloHide(0);if(VIEW.k>1){const cr=imgRect(page());VIEW.y=-VIEW.k*(PT.oy+(cr?cr.y:0)*PT.s);clampView()}buildColors();render();pagesUI();stripShow();metaChanged();clearTimeout(saveT);autosave();updFitBtn();snd('page');const srp=$('#sr');if(srp)srp.textContent=t('a_page')(i+1,DOC.pages.length);
  if(motionOn()){stage.animate([{transform:`translateX(${d*40}px)`,opacity:.6},{transform:'none',opacity:1}],{duration:260,easing:'cubic-bezier(.2,.9,.3,1)'})}}
-function addPage(quiet){if(importing)return;if(!lastDels.length&&$('#toast').querySelector('button'))$('#toast').classList.remove('on');const p=newPage(page().bg);DOC.pages.splice(DOC.cur+1,0,p);structChanged();if(VIEW.k!==1)setZoom(1);goPage(DOC.cur+1,1);taskDone(3);if(!quiet)ghost(t('newpage'))}
+function addPage(quiet){if(importing)return;if(!lastDels.length&&$('#toast').querySelector('button'))$('#toast').classList.remove('on');const p=newPage(page().bg);DOC.pages.splice(DOC.cur+1,0,p);structChanged();if(VIEW.k!==1)setZoom(1);goPage(DOC.cur+1,1);taskDone(5);if(!quiet)ghost(t('newpage'))}
+function clearPage(){if(importing)return;commitText();closePops();const p=page();if(!p.items.length&&!p.cover){toast(t('empty_page'));return}snap();p.items=[];p.cover=null;sel=null;render();pagesUI();changed();toast(t('cleared'))}
 function dupPage(){if(importing)return;commitText();const p=JSON.parse(JSON.stringify(page(),(k,v)=>k==='_hide'||k==='_thumb'||k==='id'||k==='_saved'?undefined:v));DOC.pages.splice(DOC.cur+1,0,p);structChanged();if(VIEW.k!==1)setZoom(1);goPage(DOC.cur+1,1);toast(t('copied'))}
 function delPage(){if(importing)return;if(DOC.pages.length===1){snap();page().items=[];page().cover=null;page().img=null;render();pagesUI();changed();toast(t('lastpage'));return}
  const [gone]=DOC.pages.splice(DOC.cur,1);const at=DOC.cur;structChanged();DOC.cur=Math.min(DOC.cur,DOC.pages.length-1);sel=null;render();pagesUI();changed();
@@ -1113,9 +1153,14 @@ document.addEventListener('keyup',e=>{if(e.key===' '){spaceDown=false;if(!P||P.m
 window.addEventListener('blur',()=>{spaceDown=false;stage.classList.remove('pan')});
 document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const d=e.target.closest('#kulis.on,#roul.on,#keys.on,#resume.on');if(!d)return;const f=[...d.querySelectorAll('button,input,textarea,[tabindex]:not([tabindex="-1"])')].filter(x=>x.offsetParent);if(!f.length)return;if(e.shiftKey&&document.activeElement===f[0]){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus()}});
 /* ---------- kısayol kartı ---------- */
-function toggleKeys(){const e=$('#keys');if(e.classList.contains('on')){e.classList.remove('on');INERT.forEach(s=>{const x=$(s);if(x&&!$('#kulis').classList.contains('on'))x.removeAttribute('inert')});$('#btn-kulis').focus();return}e.tabIndex=-1;INERT.forEach(s=>{const x=$(s);if(x)x.setAttribute('inert','')});setTimeout(()=>{const c=$('#keys-x');(c||e).focus()},50);
- e.innerHTML=`<button id="keys-x" aria-label="${t('a_close')}" style="position:absolute;right:14px;top:14px;width:44px;height:44px;border:0;border-radius:10px;background:#F3F0FA;font-size:18px;cursor:pointer">✕</button><h2 style="margin:0 0 10px;color:var(--mor);font-size:20px">${t('keys_title')}</h2>`+t('keylist').map(([a,b])=>`<div><span>${b}</span><kbd>${a}</kbd></div>`).join('');e.classList.add('on')}
-$('#keys').addEventListener('click',e=>{if(e.target.closest('#keys-x'))toggleKeys()});
+function toggleKeys(mode){const e=$('#keys');if(mode&&mode!==e.dataset.mode&&e.classList.contains('on')){e.classList.remove('on')}if(e.classList.contains('on')){e.classList.remove('on');e.classList.remove('guide');INERT.forEach(s=>{const x=$(s);if(x&&!$('#kulis').classList.contains('on'))x.removeAttribute('inert')});$('#btn-kulis').focus();return}e.tabIndex=-1;INERT.forEach(s=>{const x=$(s);if(x)x.setAttribute('inert','')});setTimeout(()=>{const c=$('#keys-x');(c||e).focus()},50);
+ const g=mode==='guide';e.dataset.mode=g?'guide':'keys';e.classList.toggle('guide',g);e.setAttribute('aria-label',g?t('guide_title'):t('keys_title'));
+ const x=`<button id="keys-x" aria-label="${t('a_close')}" style="position:absolute;right:14px;top:14px;width:44px;height:44px;border:0;border-radius:10px;background:#F3F0FA;font-size:18px;cursor:pointer">✕</button>`;
+ if(g)e.innerHTML=x+`<h2 style="margin:0 0 6px;color:var(--mor);font-size:22px">${t('guide_title')}</h2>`+t('guide').map(([a,b])=>`<section><h3>${a}</h3><p>${b}</p></section>`).join('')+`<div class="gfoot"><button class="pb" id="keys-all">${t('guide_all')} <kbd>?</kbd></button></div>`;
+ else e.innerHTML=x+`<h2 style="margin:0 0 10px;color:var(--mor);font-size:20px">${t('keys_title')}</h2>`+t('keylist').map(([a,b])=>`<div><span>${b}</span><kbd>${a}</kbd></div>`).join('');
+ e.classList.add('on')}
+$('#keys').addEventListener('click',e=>{if(e.target.closest('#keys-x'))toggleKeys();else if(e.target.closest('#keys-all')){toggleKeys();toggleKeys('keys')}});
+$('#guide-note').addEventListener('click',()=>{closeKulis();toggleKeys('guide')});
 document.addEventListener('pointerdown',e=>{if($('#keys').classList.contains('on')&&!e.target.closest('#keys'))toggleKeys()},true);
 
 /* ---------- kulis ---------- */
@@ -1164,7 +1209,7 @@ function snd(kind){
 }
 
 /* ---------- açılış: perde + el yazısı ---------- */
-const TASKS=[false,false,false];
+const TASKS=[false,false,false,false,false];
 function taskDone(n){if(!$('#hello').classList.contains('gone')){TASKS[n-1]=true;const s=$$('#hello .tasks span')[n-1];if(s)s.classList.add('ok');if(TASKS.every(Boolean))setTimeout(helloHide,900)}}
 let helloT;
 function helloHide(ms){const h=$('#hello');if(h.classList.contains('gone'))return;clearTimeout(helloT);helloT=setTimeout(()=>h.classList.add('gone'),ms!==undefined?ms:(TASKS.every(Boolean)?0:1500))}
@@ -1175,7 +1220,7 @@ function intro(force){
  const h=$('#hello');h.classList.remove('gone');TASKS.fill(false);
  const dark=isDark(page());
  h.innerHTML=`<svg viewBox="0 0 560 150"><text id="hw" x="280" y="100" text-anchor="middle" textLength="520" lengthAdjust="spacingAndGlyphs" font-family="'Segoe Script','Bradley Hand','Comic Sans MS',cursive" font-size="72" fill="${dark?'#FFC43D':'#5B3FA0'}" fill-opacity="0" stroke="${dark?'#FFC43D':'#5B3FA0'}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" style="stroke-dasharray:1600;stroke-dashoffset:1600;animation:hw 2.6s ease-out .9s forwards,hwf 1s ease-out 3.2s forwards">${t('hello')}</text></svg>
- <div class="tasks"><span>${t('t1')}</span><span>${t('t2')}</span><span>${t('t3')}</span></div>
+ <div class="tasks"><span>${t('t1')}</span><span>${t('t2')}</span><span>${t('t3')}</span><span>${t('t4')}</span><span>${t('t5')}</span></div>
  <style>@keyframes hw{to{stroke-dashoffset:0}}@keyframes hwf{to{fill-opacity:.9}}</style>`;
  setTimeout(()=>{c.classList.add('open');snd('whoosh')},500);setTimeout(()=>c.classList.add('gone'),1800);
 }
@@ -1208,8 +1253,8 @@ clock.addEventListener('click',e=>{const b=e.target.closest('button');const c=b?
 
 /* ---------- rastgele öğrenci ---------- */
 const usedNames=new Set();
-const INERT=['#stage','#bar','#pages','#clock','#btn-sound','#tl','#topr','#hid','#resume','#toast'];
-const KINERT=['#stage','#bar','#pages','#clock','#btn-sound','#tl','#hid','#toast','#btn-fs'];
+const INERT=['#stage','#bar','#pages','#clock','#btn-sound','#tl','#topr','#guide-note','#hid','#resume','#toast'];
+const KINERT=['#stage','#bar','#pages','#clock','#btn-sound','#tl','#hid','#toast','#btn-fs','#guide-note'];
 function closeRoul(){const r=$('#roul');if(!r.classList.contains('on'))return;r.classList.remove('on');r.style.minWidth='';INERT.forEach(s=>{const e=$(s);if(e&&!$('#kulis').classList.contains('on'))e.removeAttribute('inert')});$('#bar .tb[data-menu=class]').focus()}
 const namesNow=()=>String($('#lnames').value||(LISTS[SET.slot]||{}).names||'').split('\n').map(s=>s.trim()).filter(Boolean);
 const DEMO=['Cahit Arf','Ali Kuşçu','Ada Lovelace','Alan Turing','Uluğ Bey','Grace Hopper','Feza Gürsey','Harezmî'];
