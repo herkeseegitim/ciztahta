@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-EIDtLmyzgEOixlca6ssckKfY/DWtEwyElMJP+uZENhM=' blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-12HCDzKlXtSOzndroWXw4xoGsslKrY48kHtnfiHQnvM=' blob:; style-src 'unsafe-inline'; img-src data: blob:; font-src data: blob:; worker-src blob:; connect-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="description" content="ÇizTahta — kurulumsuz, hesapsız, çevrimdışı öğretmen tahtası. PDF üstüne çizim, perde, spot, süre, rastgele öğrenci.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Herkese Eğitim">
@@ -366,11 +366,11 @@ canvas#fx{z-index:2}
   
   <button class="rb" id="btn-fs" data-act="fs" aria-label="Tam ekran" title="Tam ekran" aria-pressed="false"><svg><use href="#i-big"/></svg></button>
   <button class="rb" id="btn-sound" aria-pressed="true"><svg><use href="#i-sound"/></svg></button>
-  <button class="rb logo" id="btn-kulis" aria-haspopup="dialog"><span class="lg"><svg viewBox="0 0 64 64"><use href="#i-logo"/></svg></span><span data-i18n="kulis">Kulis</span></button>
+  <button class="rb logo" id="btn-kulis" aria-haspopup="dialog"><span class="lg"><svg viewBox="0 0 64 64"><use href="#i-logo"/></svg></span><span data-i18n="kulis">Ayarlar</span></button>
 </div>
 </header>
 
-<div id="kulis" role="dialog" aria-modal="true" aria-label="Kulis" inert>
+<div id="kulis" role="dialog" aria-modal="true" aria-label="Ayarlar" inert>
   <button class="x" id="kulis-x" aria-label="Kapat">✕</button>
   <h1 style="font-size:22px;margin:0 0 4px">ÇizTahta</h1>
   <p class="sl" data-i18n="slogan">Kurulum yok, kayıt yok. Aç ve anlat.</p>
@@ -483,15 +483,15 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const I18N={
 tr:{
  pen:'Kalem',hl:'Fosforlu',shape:'Şekil',text:'Yazı',erase:'Silgi',undo:'Geri al',redo:'İleri al',stage:'Sahne',cls:'Sınıf',move:'Taşı',table:'Tablo',stamp:'Damga',laser:'Lazer',spot:'Spot',curtain:'Perde',hide:'Gizle',show:'Göster',newpage:'Yeni sayfa',bg:'Zemin',
- kulis:'Kulis',slogan:'Kurulum yok, kayıt yok. Aç ve anlat.',h_lesson:'Ders',lesson_ph:'Ders adı (dosya adında kullanılır)',import:'PDF / resim / kayıt aç',paste:'Panodan yapıştır',exportpdf:'PDF olarak kaydet',exportpng:'Bu sayfayı PNG kaydet',exportjson:'Çalışmayı dosyaya yedekle',newdoc:'Yeni çalışma (sayfaları temizle)',
+ kulis:'Ayarlar',slogan:'Kurulum yok, kayıt yok. Aç ve anlat.',h_lesson:'Ders',lesson_ph:'Ders adı (dosya adında kullanılır)',import:'PDF / resim / kayıt aç',paste:'Panodan yapıştır',exportpdf:'PDF olarak kaydet',exportpng:'Bu sayfayı PNG kaydet',exportjson:'Çalışmayı dosyaya yedekle',newdoc:'Yeni çalışma (sayfaları temizle)',
  h_page:'Sayfa',dup:'Çoğalt',delpage:'Sayfayı sil',h_class:'Sınıf listeleri',lname_ph:'Liste adı (örn. 6-A)',lnames_ph:'Her satıra bir ad\nAli\nAyşe\n…',list_note:'Listeler yalnızca bu bilgisayarda, tarayıcının içinde saklanır.',
  h_settings:'Ayarlar',s_sound:'Sesler',s_motion:'Hareketli efektler',s_autoshape:'Şekil düzeltme (bekle-tut)',s_big:'Büyük düğmeler',s_bottom:'Araç çubuğu altta',s_lang:'English',s_keys:'Kısayollar',s_keys_on:'Tek tuş kısayolları',s_intro:'Açılışı tekrar göster',
  h_privacy:'Gizlilik',privacy_note:'Bu sayfa hiçbir sunucuya bağlanmaz; çizimler, listeler ve ayarlar yalnızca bu tarayıcıda durur. Dosyayı indirip internetsiz de açabilirsin.',wipe:'Bu cihazdaki tüm verileri sil',drop:'Bırak: PDF, resim ya da yedek',
  stopwatch:'Kronometre',tstop:'Durdur',random:'Rastgele öğrenci',groups:'Gruplar',
  resume:'Kaldığın yerden devam edelim mi?',resume_info:(n,t)=>`${n} sayfa · son kayıt ${t}`,cont:'Devam',fresh:'Yeni başla',
  saved:'Kaydedildi',pdf_err:'PDF açılamadı',file_err:'Dosya açılamadı',imported:n=>`${n} sayfa eklendi`,copied:'Sayfa çoğaltıldı',deleted:'Sayfa silindi',lastpage:'Tek sayfa silinmez; temizlendi',
- nolist:'Önce Kulis › Sınıf listeleri bölümüne adları yaz',alldone:'Herkes seçildi, liste sıfırlandı',again:'Tekrar',close:'Kapat',reset:'Sıfırla',pick:'Seç',group:'Grup',ngroups:'Grup sayısı',
- wipe_q:'Bu tarayıcıdaki tüm ÇizTahta verileri silinsin mi? (çizimler, listeler, ayarlar)',wiped:'Silindi',wipe_err:'Veriler silinemedi — tarayıcı izin vermedi',newdoc_q:'Tüm sayfalar temizlensin mi? Önce yedek almak istersen Kulis › yedekle.',
+ nolist:'Önce Ayarlar › Sınıf listeleri bölümüne adları yaz',alldone:'Herkes seçildi, liste sıfırlandı',again:'Tekrar',close:'Kapat',reset:'Sıfırla',pick:'Seç',group:'Grup',ngroups:'Grup sayısı',
+ wipe_q:'Bu tarayıcıdaki tüm ÇizTahta verileri silinsin mi? (çizimler, listeler, ayarlar)',wiped:'Silindi',wipe_err:'Veriler silinemedi — tarayıcı izin vermedi',newdoc_q:'Tüm sayfalar temizlensin mi? Önce yedek almak istersen Ayarlar › yedekle.',
  hello:'Merhaba, buraya yaz.',t1:'Bir şey çiz',t2:'Rengi değiştir',t3:'Sayfa ekle',
  sample_title:'Örnek ders sayfası — silip kendin kullanabilirsin',
  timer_end:'Süre bitti',hidden:'Çizimler gizlendi (H ile geri al)',hidden_badge:'Çizimler gizli · H ile göster',
@@ -501,21 +501,21 @@ tr:{
  ring:['Damga','Tablo','Taşı','Çoğalt','Spot','Perde','Yeni sayfa','Zemin'],
  stamps:['⭐','✔','❤','❓','👏','🙂'],
  bgnames:{krem:'Krem',dark:'Koyu',grid:'Kareli',lines:'Çizgili'},
- delpage_q:'Bu sayfa silinsin mi?',lastpage_hint:'Son sayfa — yeni sayfa için tekrar bas',row:'satır',col:'sütun',a_cv:'Çizim tahtası',a_page:(i,n)=>`Sayfa ${i}/${n}`,a_min:'Dakika',a_cls:'Sınıf',a_zoom:'Yakınlaştırmayı sıfırla',a_close:'Kapat',a_tools:'Araçlar',a_pages:'Sayfalar',a_pause:'Duraklat / sürdür',a_big:'Büyüt',a_sound:'Ses (Q)',a_style:'Renk ve kalınlık',a_text:'Yazı',a_resume:'Devam',a_fs:'Tam ekran',lname_lbl:'Liste adı',lnames_lbl:'Öğrenci adları',fs_hint:'Projeksiyonda tam ekran için F11',lists_out:'Listeleri dosyaya aktar',lists_in:'Listeleri dosyadan al',lists_ok:'Listeler alındı',fitw:'Genişliğe sığdır',to_page:'Sayfaya yaz',undo_btn:'Geri al',prevdoc:'Önceki çalışmayı geri getir',prev_saved:'Önceki çalışma kenara alındı: Kulis › Önceki çalışmayı geri getir',prev_q:'Şu anki çalışma kenara alınıp önceki geri getirilsin mi? (Aynı düğmeyle tekrar yer değiştirir.)',zoom_reset:'Sığdır (Ctrl+0)',
+ delpage_q:'Bu sayfa silinsin mi?',lastpage_hint:'Son sayfa — yeni sayfa için tekrar bas',row:'satır',col:'sütun',a_cv:'Çizim tahtası',a_page:(i,n)=>`Sayfa ${i}/${n}`,a_min:'Dakika',a_cls:'Sınıf',a_zoom:'Yakınlaştırmayı sıfırla',a_close:'Kapat',a_tools:'Araçlar',a_pages:'Sayfalar',a_pause:'Duraklat / sürdür',a_big:'Büyüt',a_sound:'Ses (Q)',a_style:'Renk ve kalınlık',a_text:'Yazı',a_resume:'Devam',a_fs:'Tam ekran',lname_lbl:'Liste adı',lnames_lbl:'Öğrenci adları',fs_hint:'Projeksiyonda tam ekran için F11',lists_out:'Listeleri dosyaya aktar',lists_in:'Listeleri dosyadan al',lists_ok:'Listeler alındı',fitw:'Genişliğe sığdır',to_page:'Sayfaya yaz',undo_btn:'Geri al',prevdoc:'Önceki çalışmayı geri getir',prev_saved:'Önceki çalışma kenara alındı: Ayarlar › Önceki çalışmayı geri getir',prev_q:'Şu anki çalışma kenara alınıp önceki geri getirilsin mi? (Aynı düğmeyle tekrar yer değiştirir.)',zoom_reset:'Sığdır (Ctrl+0)',
  sample:['Algoritma: Sayı tek mi çift mi?','1. Sayıyı oku','2. 2 ile böl, kalana bak','3. Kalan 0 ise ÇİFT, değilse TEK','Sınıfta dene: 17, 24, 101'],
  min:'dk'
 },
 en:{
  pen:'Pen',hl:'Highlighter',shape:'Shape',text:'Text',erase:'Eraser',undo:'Undo',redo:'Redo',stage:'Stage',cls:'Class',move:'Move',table:'Table',stamp:'Stamp',laser:'Laser',spot:'Spotlight',curtain:'Curtain',hide:'Hide',show:'Show',newpage:'New page',bg:'Background',
- kulis:'Backstage',slogan:'Open. Draw. Teach.',h_lesson:'Lesson',lesson_ph:'Lesson name (used in file name)',import:'Open PDF / image / backup',paste:'Paste from clipboard',exportpdf:'Save as PDF',exportpng:'Save this page as PNG',exportjson:'Back up work to a file',newdoc:'New work (clear pages)',
+ kulis:'Settings',slogan:'Open. Draw. Teach.',h_lesson:'Lesson',lesson_ph:'Lesson name (used in file name)',import:'Open PDF / image / backup',paste:'Paste from clipboard',exportpdf:'Save as PDF',exportpng:'Save this page as PNG',exportjson:'Back up work to a file',newdoc:'New work (clear pages)',
  h_page:'Page',dup:'Duplicate',delpage:'Delete page',h_class:'Class lists',lname_ph:'List name (e.g. 6-A)',lnames_ph:'One name per line\nAli\nMaya\n…',list_note:'Lists are stored only on this computer, inside the browser.',
  h_settings:'Settings',s_sound:'Sounds',s_motion:'Motion effects',s_autoshape:'Shape correction (hold)',s_big:'Big buttons',s_bottom:'Toolbar at bottom',s_lang:'Türkçe',s_keys:'Shortcuts',s_keys_on:'Single-key shortcuts',s_intro:'Show intro again',
  h_privacy:'Privacy',privacy_note:'This page never contacts a server; drawings, lists and settings stay in this browser. Download the file and use it offline.',wipe:'Delete all data on this device',drop:'Drop: PDF, image or backup',
  stopwatch:'Stopwatch',tstop:'Stop',random:'Random student',groups:'Groups',
  resume:'Continue where you left off?',resume_info:(n,t)=>`${n} pages · last saved ${t}`,cont:'Continue',fresh:'Start fresh',
  saved:'Saved',pdf_err:'Could not open PDF',file_err:'Could not open file',imported:n=>`${n} pages added`,copied:'Page duplicated',deleted:'Page deleted',lastpage:'Last page kept; cleared instead',
- nolist:'First type names in Backstage › Class lists',alldone:'Everyone picked, list reset',again:'Again',close:'Close',reset:'Reset',pick:'Pick',group:'Group',ngroups:'Number of groups',
- wipe_q:'Delete all ÇizTahta data in this browser? (drawings, lists, settings)',wiped:'Deleted',wipe_err:'Could not delete data — browser refused',newdoc_q:'Clear all pages? Back up first via Backstage if needed.',
+ nolist:'First type names in Settings › Class lists',alldone:'Everyone picked, list reset',again:'Again',close:'Close',reset:'Reset',pick:'Pick',group:'Group',ngroups:'Number of groups',
+ wipe_q:'Delete all ÇizTahta data in this browser? (drawings, lists, settings)',wiped:'Deleted',wipe_err:'Could not delete data — browser refused',newdoc_q:'Clear all pages? Back up first via Settings if needed.',
  hello:'Hello, write here.',t1:'Draw something',t2:'Change color',t3:'Add a page',
  sample_title:'Sample lesson page — erase and use it yourself',
  timer_end:'Time is up',hidden:'Drawings hidden (V to show)',hidden_badge:'Drawings hidden · V to show',
@@ -525,12 +525,12 @@ en:{
  ring:['Stamp','Table','Move','Duplicate','Spotlight','Curtain','New page','Background'],
  stamps:['⭐','✔','❤','❓','👏','🙂'],
  bgnames:{krem:'Cream',dark:'Dark',grid:'Grid',lines:'Lines'},
- delpage_q:'Delete this page?',lastpage_hint:'Last page — press again for a new page',row:'row',col:'column',a_cv:'Drawing board',a_page:(i,n)=>`Page ${i}/${n}`,a_min:'Minutes',a_cls:'Class',a_zoom:'Reset zoom',a_close:'Close',a_tools:'Tools',a_pages:'Pages',a_pause:'Pause / resume',a_big:'Enlarge',a_sound:'Sound (Q)',a_style:'Color and width',a_text:'Text',a_resume:'Resume',a_fs:'Full screen',lname_lbl:'List name',lnames_lbl:'Student names',fs_hint:'Press F11 for full screen on the projector',lists_out:'Export lists to file',lists_in:'Import lists from file',lists_ok:'Lists imported',fitw:'Fit width',to_page:'Write to page',undo_btn:'Undo',prevdoc:'Restore previous work',prev_saved:'Previous work set aside: Backstage › Restore previous work',prev_q:'Set the current work aside and restore the previous one? (Same button swaps back.)',zoom_reset:'Fit (Ctrl+0)',
+ delpage_q:'Delete this page?',lastpage_hint:'Last page — press again for a new page',row:'row',col:'column',a_cv:'Drawing board',a_page:(i,n)=>`Page ${i}/${n}`,a_min:'Minutes',a_cls:'Class',a_zoom:'Reset zoom',a_close:'Close',a_tools:'Tools',a_pages:'Pages',a_pause:'Pause / resume',a_big:'Enlarge',a_sound:'Sound (Q)',a_style:'Color and width',a_text:'Text',a_resume:'Resume',a_fs:'Full screen',lname_lbl:'List name',lnames_lbl:'Student names',fs_hint:'Press F11 for full screen on the projector',lists_out:'Export lists to file',lists_in:'Import lists from file',lists_ok:'Lists imported',fitw:'Fit width',to_page:'Write to page',undo_btn:'Undo',prevdoc:'Restore previous work',prev_saved:'Previous work set aside: Settings › Restore previous work',prev_q:'Set the current work aside and restore the previous one? (Same button swaps back.)',zoom_reset:'Fit (Ctrl+0)',
  sample:['Algorithm: odd or even?','1. Read the number','2. Divide by 2, look at the remainder','3. Remainder 0 → EVEN, else ODD','Try in class: 17, 24, 101'],
  min:'min'
 }};
 let LANG=null;try{LANG=localStorage.getItem('ct.lang')}catch(_){}
-let lsWarned=false;function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){console.warn('storage',e);if(!lsWarned){lsWarned=true;const full=e&&(e.name==='QuotaExceededError'||e.code===22);if(typeof toast==='function')toast(full?(LANG==='tr'?'Tarayıcı depolaması dolu — ayarlar ve listeler kaydedilemedi, Kulis › yedekle':'Browser storage full — settings and lists not saved, back up via Backstage'):(LANG==='tr'?'Tarayıcı depolamaya izin vermiyor — ayarlar ve listeler kaydedilmeyecek':'Browser blocks storage — settings and lists will not be saved'),5000)}return false}}if(!Object.prototype.hasOwnProperty.call(I18N,LANG)){let nl='';try{nl=(navigator.language||'').toLowerCase()}catch(_){}LANG=(nl&&!nl.startsWith('tr'))?'en':'tr'};
+let lsWarned=false;function lsSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){console.warn('storage',e);if(!lsWarned){lsWarned=true;const full=e&&(e.name==='QuotaExceededError'||e.code===22);if(typeof toast==='function')toast(full?(LANG==='tr'?'Tarayıcı depolaması dolu — ayarlar ve listeler kaydedilemedi, Ayarlar › yedekle':'Browser storage full — settings and lists not saved, back up via Settings'):(LANG==='tr'?'Tarayıcı depolamaya izin vermiyor — ayarlar ve listeler kaydedilmeyecek':'Browser blocks storage — settings and lists will not be saved'),5000)}return false}}if(!Object.prototype.hasOwnProperty.call(I18N,LANG)){let nl='';try{nl=(navigator.language||'').toLowerCase()}catch(_){}LANG=(nl&&!nl.startsWith('tr'))?'en':'tr'};
 const t=k=>{const v=I18N[LANG][k];return v===undefined?(I18N.tr[k]??k):v};
 function applyI18n(){
  document.documentElement.lang=LANG;
@@ -1275,7 +1275,7 @@ async function autosave(){if(!dirty||wiping)return;if(saving){if(Date.now()-savi
    if(sd){const req=st.getAllKeys();req.onsuccess=()=>{for(const k of req.result)if(typeof k==='string'&&k.startsWith('pg:')&&!ids.has(k.slice(3)))st.delete(k)}}
    tx.oncomplete=()=>{for(const [, ,p] of payload)p._saved=true;ok()};tx.onerror=()=>no(tx.error);tx.onabort=()=>no(tx.error)});
   if(savingAt===my)inflight=null;saveFail=false;saveFails=0;if(!dirty){try{localStorage.removeItem('ct.unload')}catch(_){}}}
- catch(e){console.warn('autosave',e);saveFails++;if(savingAt===my)requeue();if(!saveFail||saveFails%3===0){saveFail=true;toast(LANG==='tr'?'Otomatik kayıt başarısız — Kulis › yedekle':'Autosave failed — back up via Backstage',4000)}}
+ catch(e){console.warn('autosave',e);saveFails++;if(savingAt===my)requeue();if(!saveFail||saveFails%3===0){saveFail=true;toast(LANG==='tr'?'Otomatik kayıt başarısız — Ayarlar › yedekle':'Autosave failed — back up via Settings',4000)}}
  finally{if(savingAt===my){saving=false;if(dirty){clearTimeout(saveT);saveT=setTimeout(autosave,Math.min(30000,900*2**Math.min(5,saveFails)))}}}}
 async function loadSaved(){const m=await kvGet('doc');let base=null;
  if(m&&m.pages)base=m;else if(m&&Array.isArray(m.ids)){const pages=[];for(const id of m.ids){const p=await kvGet('pg:'+id);if(p){p.id=id;pages.push(p)}}base={name:m.name,cur:m.cur,at:m.at,w:m.w,h:m.h,pages}}
