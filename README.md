@@ -22,3 +22,9 @@ Issue aç ya da videonun altına yaz; bakıyorum.
 
 ## Lisans
 MIT — İdiye Ökten. PDF okuma için pdf.js (Apache-2.0) gömülüdür.
+
+
+## Nasıl yapıldı
+Claude ile birlikte yazdım: ne yapacağına ben karar verdim, kodu Claude yazdı, birlikte denedik ve düzelttik.
+
+Built with Claude: I set the goals, Claude wrote the code, we tested and fixed it together.
